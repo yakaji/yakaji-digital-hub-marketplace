@@ -1,0 +1,508 @@
+[
+  {
+    "name": "Reference-matched Yakaji storefront, live trending products and responsive navigation",
+    "viewport": "mobile",
+    "covers": [
+      "mobile responsive header and search",
+      "home and marketplace navigation",
+      "Vendors navigation opens the signed-in vendor dashboard directly",
+      "Affiliate Dashboard is directly accessible from More navigation",
+      "affiliate dashboard account and product data load concurrently",
+      "vendor dashboard products orders coupons and wallet load concurrently",
+      "database-backed category filtering",
+      "wishlist toggle",
+      "promotional banner actions",
+      "vendor and affiliate calls to action",
+      "no fake ratings or product placeholders replacing database records"
+    ],
+    "description": "Verifies the redesigned storefront navigation, search, category filters, saved products and shopping calls to action remain connected to the existing marketplace workflows.",
+    "steps": [
+      "Open the marketplace on a mobile viewport",
+      "Use the header search to search for an existing product",
+      "Select a category card and verify the marketplace list filters to matching database products",
+      "Toggle the wishlist and verify saved products are shown",
+      "Tap Vendor Dashboard and verify the signed-in vendor is taken directly to the vendor dashboard",
+      "Open More, tap Affiliate Dashboard and verify the affiliate dashboard or registration view opens",
+      "Verify vendor dashboard panels and affiliate catalogue load from existing account data without changing roles or permissions",
+      "Use the course promotional action to navigate to its existing flow"
+    ],
+    "expected": "The redesigned storefront remains usable on mobile, category selection filters the live product list, search and wishlist work, and promotional actions open existing marketplace flows."
+  },
+  {
+    "name": "Guest checkout, customer accounts, support, reviews and orders",
+    "sanity": true,
+    "viewport": "desktop",
+    "covers": [
+      "public shared product catalogue",
+      "customer support robot FAQ answers and admin escalation",
+      "customer support WhatsApp and email contact channels",
+      "persistent customer support chat and admin replies",
+      "refund and return policy information",
+      "verified customer star ratings and review comments",
+      "authenticated customer purchase history",
+      "My Orders shortcut is visible beside Messages and Notifications",
+      "order notifications deep-link to the matching customer order history card",
+      "chat notifications deep-link to the matching private conversation",
+      "notification click marks it read and routes to the relevant customer destination",
+      "customer order history displays every purchased item, quantities, options, unit prices and line totals",
+      "customer order history displays subtotal, transfer fee and grand total",
+      "customer order history displays payment method, payment status, reference and paid date",
+      "customer order history displays delivery address, customer contacts, order progress and refund or tracking information",
+      "customer cancellation of unpaid New orders and inventory restoration",
+      "Paystack test and live key mode detection",
+      "cart quantity and options",
+      "optional email for guest bank-transfer checkout",
+      "Paystack receipt email validation accepts standard addresses after trimming whitespace",
+      "customer account sign-up and returning sign-in",
+      "Paystack hosted checkout initialization and redirect",
+      "Paystack server-side transaction verification",
+      "manual bank transfer instructions for Yakaji Digital Hub Moniepoint account",
+      "customer wallet payment option and atomic balance deduction",
+      "customer wallet funding by Paystack with server-side amount and reference verification",
+      "customer wallet funding by manual bank transfer with owner confirmation",
+      "wallet funding and withdrawal forms have independent submit handlers, loading states and confirmations",
+      "wallet funding Continue opens only the selected Paystack checkout or manual bank transfer instructions and never submits a withdrawal",
+      "customer top-up request history and refreshed wallet balance",
+      "owner confirms or rejects pending customer manual bank transfer top-up requests",
+      "owner manually credits a selected customer wallet and the credit appears in customer wallet balance and ledger",
+      "only owner allowlisted account can manage customer top-ups and issue manual customer wallet credits",
+      "customer wallet withdrawals with owner approval and refund-on-rejection",
+      "customer withdrawal requests reserve wallet balance and transfer fee",
+      "customer withdrawal history and status refresh",
+      "durable order creation",
+      "inventory stock decrement",
+      "vendor and admin new-order email notification attempt",
+      "order confirmation"
+    ],
+    "description": "Verifies shoppers can order without registering, while customers who want an account can create one or sign in again for profile and wallet features.",
+    "steps": [
+      "Open the marketplace and browse the approved product catalogue",
+      "Sign in as a customer and open My wallet",
+      "Enter a top-up amount and select Paystack; verify the hosted payment page opens and no wallet credit is applied before server-side verification",
+      "Complete a successful Paystack test payment and verify the wallet balance and transaction history update exactly once",
+      "Repeat with manual bank transfer and verify the top-up is pending and not spendable until the owner confirms the received transfer",
+      "Refresh wallet status and verify the top-up history shows pending or completed status",
+      "Request a customer bank withdrawal with valid bank details and verify the wallet reserves the amount plus fee and the request appears as pending",
+      "Sign in as the owner, approve the customer withdrawal, mark the manual transfer paid, and verify the customer sees paid status",
+      "For a separate pending customer withdrawal, reject it and verify the reserved amount and fee are returned exactly once",
+      "Sign in as an approved vendor and verify the separate vendor sales withdrawal workflow remains available",
+      "Add an available product to the cart and adjust quantity",
+      "Apply a valid vendor coupon and verify the coupon savings reduce the checkout total",
+      "Try an expired coupon and verify checkout rejects it without creating an order",
+      "Continue as a guest, enter name and phone, leave email blank, select manual bank transfer and place the order",
+      "Verify the guest order is saved and the transfer instructions display without requiring registration",
+      "For a separate Paystack checkout, enter a standard valid email address (including one with accidental surrounding spaces), complete hosted payment, and verify it reaches Paystack instead of failing email validation",
+      "Use Create account or Sign in to open the secure account screen, then return later and restore the customer session",
+      "Open Help & Support and ask a common refund or order question to receive the support robot response",
+      "Send an unrecognized question and verify it is escalated to the admin inbox; sign in as owner and reply",
+      "Open a product and verify its star ratings and review comments are visible; submit a review only after a paid completed purchase",
+      "Sign in as the customer, open My Orders and verify order items, quantities, prices, subtotal, fees, total, payment details, delivery contacts and order progress are displayed",
+      "Sign in as owner, open Customer wallet top-up requests, confirm a pending manual bank transfer and verify the customer wallet balance and transaction history are credited exactly once",
+      "Reject a separate pending manual top-up and verify no wallet credit is applied",
+      "Use Manually fund a customer wallet to select a customer and add a custom amount; verify the wallet ledger records the owner credit",
+      "Cancel an unpaid New order and verify it becomes Cancelled and stock is restored",
+      "Verify Paystack status reports TEST MODE for a valid sk_test_ credential and LIVE MODE for a valid sk_live_ credential",
+      "Verify the customer is redirected to Paystack hosted checkout and the backend verifies the returned transaction reference before marking the order paid",
+      "Repeat checkout with manual bank transfer selected and verify the Yakaji Digital Hub Moniepoint account instructions and order number are displayed"
+    ],
+    "expected": "Guests can place manual bank-transfer orders without registering; Paystack still requires an email and server verification. Signed-in customers can fund their wallet through verified Paystack payments or owner-confirmed manual transfers, see their top-up history, and spend the balance on marketplace purchases. Customers can request bank withdrawals from their wallet balance; the amount plus fee is reserved immediately, the owner must approve before marking paid, and rejected requests return the reserved funds exactly once. Customers can view order history and cancel unpaid New orders, restoring stock. Product ratings and reviews are saved and only verified paid completed customers can post. The support centre answers common questions with automated replies, escalates unknown questions to the owner inbox, supports admin replies and displays the WhatsApp and email contacts. Paystack test credentials are clearly identified as test mode and live credentials as live mode; test transactions are never described as real payments."
+  },
+  {
+    "name": "Register a vendor and enforce approval permissions",
+    "viewport": "desktop",
+    "covers": [
+      "vendor authentication",
+      "vendor registration",
+      "pending vendor state",
+      "anonymous vendor dashboard protection",
+      "owner-only vendor approval",
+      "vendor role boundaries"
+    ],
+    "description": "Verifies a signed-in seller can apply for a shop, remains pending until the owner approves them, and cannot publish products before approval.",
+    "steps": [
+      "Actor A signs in and submits a vendor shop application",
+      "Verify the application is shown as awaiting approval",
+      "Actor A attempts to publish a product before approval",
+      "Owner signs in and approves Actor A in the owner dashboard",
+      "Actor A opens the vendor dashboard and can now manage only their own shop"
+    ],
+    "expected": "Pending vendors cannot publish products; only the owner can approve them, and an approved vendor can manage their own shop."
+  },
+  {
+    "name": "Publish products and view customer details without order controls",
+    "viewport": "desktop",
+    "covers": [
+      "product create and update",
+      "vendor can choose standard price with manual sale price or percentage discount",
+      "marketplace shows crossed-out standard price and active sale price",
+      "scheduled product discounts start and expire automatically",
+      "image upload",
+      "video upload",
+      "product variations",
+      "vendor creates product coupon with percentage or fixed amount and selected expiry date",
+      "coupon can be limited to selected vendor products, minimum spend and usage count",
+      "customer applies a valid coupon at checkout and sees the discount in the payable total",
+      "expired, inactive, exhausted and ineligible coupons are rejected server-side",
+      "wallet and Paystack or bank transfer checkout both recalculate coupon discounts on the server",
+      "stock management",
+      "vendor-specific order visibility",
+      "customer name phone email and address visibility",
+      "vendor sales and earnings analytics",
+      "vendor cannot change order status",
+      "product deletion"
+    ],
+    "description": "Verifies an approved vendor can manage their own listings, see complete customer contact and delivery details for relevant orders, review their sales totals, and cannot approve or complete orders.",
+    "steps": [
+      "An approved vendor uploads product photos and a demonstration video",
+      "Enter standard price, choose manual discount price or percentage discount, set optional discount dates, add stock and variations, and publish",
+      "Create a product coupon, choose percentage or fixed discount, select products and set a future expiry date and time",
+      "Verify the coupon appears in the vendor coupon list with its expiry and usage count",
+      "Owner approves the product and a customer places an order for it",
+      "Vendor opens My customer orders and checks customer name, phone, email, address, payment method and only their own order items",
+      "Vendor reviews today, week, month and year sales totals",
+      "Verify there is no vendor order status control and only the owner can change order status"
+    ],
+    "expected": "The vendor sees full customer details for orders containing their products and their own sales and earnings reports, but cannot approve, process, ship, cancel or complete any order."
+  },
+  {
+    "name": "Owner manages the marketplace and reviews sales by period",
+    "viewport": "desktop",
+    "covers": [
+      "owner email allowlist",
+      "admin dashboard authorization",
+      "vendor approve reject suspend",
+      "owner product create edit delete",
+      "global order management",
+      "admin-only order status changes",
+      "all-marketplace day week month year analytics",
+      "verified paid revenue trend from completed payment records",
+      "daily order activity trend from stored orders",
+      "order status breakdown from stored order statuses",
+      "payment method breakdown from stored orders",
+      "owner KPI dashboard and quick navigation",
+      "owner controls default marketplace commission at 8 percent",
+      "owner can override marketplace commission per product",
+      "vendor can choose affiliate commission 0 percent or 5 to 25 percent",
+      "owner can set all existing products without an affiliate rate to a 5 percent default",
+      "checkout snapshots product marketplace and affiliate rates into each order item",
+      "vendor net settlement deducts marketplace commission, affiliate commission and actual Paystack fee",
+      "wallet funding fee is fixed at 100 naira for customer and vendor top-ups",
+      "owner quick action cards link directly to every major management section",
+      "owner dashboard navigation includes profit, support, sales reports, funding, top-ups and withdrawals",
+      "vendor sales ranking",
+      "customer completion email trigger"
+    ],
+    "description": "Verifies only the configured owner account can manage the whole marketplace, review time-based sales analytics and update order status.",
+    "steps": [
+      "A signed-out visitor opens the owner dashboard",
+      "Sign in with an account that is not the owner email and attempt to open owner controls",
+      "Owner signs in with the configured owner account",
+      "Review the owner dashboard KPI cards and confirm the paid revenue, order, vendor, product and registered-user totals match the live marketplace records",
+      "Use the quick action cards and dashboard navigation to open orders, vendors, products, finance settings, wallet top-ups, withdrawals, support inbox and sales reports",
+      "Review the six-month verified paid-revenue chart, 14-day order activity chart, order-status breakdown, payment-method breakdown and the period reports and vendor ranking",
+      "Update an order status to Completed"
+    ],
+    "expected": "Only the configured owner email can access platform-wide controls, view all marketplace analytics and change order status; completing an order triggers a customer email when email delivery is configured and the customer supplied an email address."
+  },
+  {
+    "name": "Handle invalid checkout, permission boundaries and media failures",
+    "viewport": "mobile",
+    "covers": [
+      "required checkout fields",
+      "required customer email validation",
+      "empty cart guardrail",
+      "stock validation",
+      "vendor order status authorization denial",
+      "file type and size validation",
+      "visible backend error feedback",
+      "responsive mobile checkout"
+    ],
+    "description": "Verifies invalid checkout data and unauthorized vendor order changes are blocked and mobile forms remain usable.",
+    "steps": [
+      "Attempt checkout with an empty cart",
+      "Add a product and submit without required customer details or a valid email",
+      "Attempt to add a quantity greater than available stock",
+      "Attempt a vendor order status update through the vendor route and verify it is denied or unavailable",
+      "On a vendor account choose an unsupported or oversized upload"
+    ],
+    "expected": "Invalid actions are blocked, vendors cannot update order status, no invalid order or media item is created, and the mobile checkout remains usable."
+  },
+  {
+    "name": "Customer manages profile and avatar while owner reviews the user directory",
+    "viewport": "mobile",
+    "covers": [
+      "authenticated customer profile creation",
+      "customer sign-in session restoration and sign-out",
+      "customer profile edit and persistence",
+      "profile picture upload",
+      "owner-only registered user directory",
+      "marketplace user count and customer order summary"
+    ],
+    "description": "Verifies customers can save their contact and delivery profile with an optional picture, and only the owner can review the registered user directory and user totals.",
+    "steps": [
+      "Sign in as a customer and open My profile",
+      "Enter full name, phone, WhatsApp and address details and upload an image",
+      "Save, refresh, and confirm the profile details and picture remain",
+      "Sign in as the marketplace owner and open Registered marketplace users",
+      "Verify the customer appears with their profile details and order summary"
+    ],
+    "expected": "The customer's profile and avatar persist, the owner dashboard shows the registered-user count and profile details, and non-admin accounts cannot access the directory."
+  },
+  {
+    "name": "Open product details and send payment confirmation emails",
+    "viewport": "desktop",
+    "covers": [
+      "clickable product cards",
+      "copy product-specific shareable URL",
+      "native device share sheet for product",
+      "direct WhatsApp Facebook and Telegram product sharing",
+      "opening a copied product URL loads the matching approved product detail",
+      "inline product gallery and video details without empty Product details or Photos tab panels",
+      "full product description and seller information",
+      "product options and add to cart from details",
+      "admin payment confirmation action",
+      "admin can keep an unpaid order payment pending",
+      "admin can reject an unpaid payment attempt without marking the order paid",
+      "customer receives an order-linked notification for payment review decisions",
+      "admin can access announcements and target all customers and vendors or one audience group",
+      "admin can reverify pending Paystack product orders against the Paystack gateway",
+      "Paystack product orders are marked paid only for successful matching NGN amount and transaction reference",
+      "admin can confirm a received manual bank transfer for an unpaid product order",
+      "pending or failed order payments remain unpaid and unsupported methods cannot be manually overridden",
+      "customer vendor and admin payment email notification",
+      "customer and vendor wallet top-ups with Paystack verification or manual transfer confirmation",
+      "customer wallet top-up ₦75 fee",
+      "owner manual vendor wallet credit",
+      "vendor wallet balance and transaction history",
+      "vendor sales withdrawals remain available independently of customer wallet restrictions"
+    ],
+    "description": "Verifies product details and checkout remain available, Paystack orders require successful server-side verification, manual transfers require owner confirmation after receipt, and successful payment confirmation triggers existing notifications.",
+    "steps": [
+      "Open the marketplace and click a product card",
+      "Verify photos and video appear directly beside the product information, with no empty Product details or Photos panels; open a photo full size and swipe through available photos",
+      "Copy the product link and verify the link contains this product's ID",
+      "Open the WhatsApp, Facebook and Telegram share actions and verify each uses the same direct product URL",
+      "Open the copied product URL in a fresh browser tab and verify the matching product detail view opens automatically",
+      "Choose an available variation and add the product to the cart",
+      "As the owner, open an unpaid Paystack order and select Verify Paystack & confirm paid; verify the backend checks the stored reference, successful gateway status, exact NGN total and matching reference before marking it paid",
+      "For a Paystack transaction still pending or failed, verify the order remains unpaid and no paid notifications are sent",
+      "For a manual bank transfer order, independently verify receipt in the bank account, then select Confirm money received and verify the order payment becomes completed", 
+      "For an unpaid order with no received funds, select Keep pending and verify the order remains unpaid", 
+      "For an unpaid order with no received funds, select Reject payment and verify the order remains unpaid and the customer receives an order notification", 
+      "Send announcements to all customers and vendors, customers only, and vendors only; verify only the selected registered audience receives each message", 
+      "Verify successful payment confirmation triggers the existing customer, vendor and admin payment notifications once; already-paid orders cannot be credited or notified twice",
+      "Verify wallet-paid orders remain paid and other unsupported payment methods cannot be manually marked paid"
+    ],
+    "expected": "The product opens in a detailed view with available media and information. Paystack orders are marked paid only after server-side gateway verification confirms success and exact matching transaction details; manual transfers require owner confirmation after receipt. Pending, failed, mismatched and unsupported payments remain unpaid. Successful confirmations trigger existing notifications without duplicate confirmation."
+  },
+  {
+    "name": "Save favourite products and sort the marketplace catalogue",
+    "viewport": "mobile",
+    "covers": [
+      "save and remove favourite products",
+      "favourites persist after reload",
+      "filter catalogue to saved products",
+      "sort products by price and name",
+      "responsive shopping catalogue controls"
+    ],
+    "description": "Verifies shoppers can save products for later, view only saved items and sort the catalogue without affecting checkout.",
+    "steps": [
+      "Open the marketplace and save a product using its heart button",
+      "Open Saved products and verify the saved product is shown",
+      "Refresh the page and confirm the saved product remains saved",
+      "Turn off Saved products and sort the catalogue by price low to high"
+    ],
+    "expected": "The heart button toggles a product in the saved list, saved products persist after reload, the saved-only filter works and the catalogue sorts by the selected option."
+  },
+  {
+    "name": "Marketplace commission profit is private to the owner",
+    "viewport": "desktop",
+    "covers": [
+      "owner-only commission analytics endpoint",
+      "hide marketplace commission from vendor dashboard and wallet API",
+      "hide commission rate from customer and vendor order APIs",
+      "hide commission rate from public marketplace settings",
+      "calculate owner profit only from verified paid vendor sales",
+      "exclude unpaid and refunded orders from earned profit",
+      "show commission by vendor and product to owner"
+    ],
+    "description": "Verifies marketplace commission and owner profit are visible only to the allowlisted owner, while vendor earnings are shown without exposing platform commission.",
+    "steps": [
+      "Open the public marketplace settings and verify the commission percentage is not returned",
+      "Sign in as a customer and inspect the customer's order response for commission fields",
+      "Sign in as an approved vendor and inspect wallet and vendor-order responses for commission amounts or percentages",
+      "Sign in as the owner and open Marketplace profit & commission analytics",
+      "Verify paid vendor orders contribute commission, unpaid orders do not, and refunded orders reverse their commission"
+    ],
+    "expected": "Only the marketplace owner can access platform profit, commission amounts, rates, and vendor/product commission analytics. Vendors see their gross sales and available earnings only; customers see no commission data. Only verified paid vendor transactions count, and refunded transactions are excluded or reversed."
+  },
+  {
+    "name": "Vendor sets a valid per-product affiliate commission",
+    "viewport": "mobile",
+    "covers": [
+      "vendor-defined product affiliate commission",
+      "5% minimum affiliate commission",
+      "25% maximum affiliate commission",
+      "server-side affiliate commission validation",
+      "affiliate commission persists when editing a product",
+      "vendor and owner can edit all product information and optionally remove or add product photos"
+    ],
+    "description": "Verifies an approved vendor can choose a whole-number affiliate commission from 5% through 25% for each product and invalid values are rejected by the backend.",
+    "steps": [
+      "Sign in as an approved vendor and open Publish a product",
+      "Set Affiliate commission to 5% and publish the product",
+      "Edit the product and change the commission to 25%, then save",
+      "Verify the saved product retains 25% when edited again",
+      "Attempt to save a commission below 5% (except 0% to disable) or above 25% and verify the server rejects it"
+    ],
+    "expected": "Each product stores its vendor-selected affiliate commission, values from 5% through 25% are accepted, and values outside that range are rejected."
+  },
+  {
+    "name": "Customer can apply to become an affiliate without becoming a vendor",
+    "viewport": "mobile",
+    "covers": [
+      "visible Become an Affiliate navigation entry",
+      "customer affiliate registration page",
+      "signed-in customer affiliate application",
+      "affiliate application linked to customer account",
+      "duplicate affiliate application prevention",
+      "affiliate registration remains separate from vendor registration",
+      "approved affiliate dashboard shows eligible product catalogue with real product images and product information",
+      "affiliate product links preserve the affiliate referral code",
+      "server-rendered product Open Graph and Twitter metadata uses the selected product image and details",
+      "normal product share links show product preview without affiliate attribution",
+      "affiliate catalogue provides copy link and WhatsApp Facebook X share actions"
+    ],
+    "description": "Verifies any signed-in marketplace customer can find the affiliate registration page and submit one affiliate application without creating a vendor shop.",
+    "steps": [
+      "Open the marketplace as a customer and choose Become an Affiliate from the navigation",
+      "Verify the page explains that a vendor account is not required",
+      "Sign in or create a customer account if prompted, then reopen Become an Affiliate",
+      "Enter full name and phone number and submit the affiliate application",
+      "Verify the application status is shown and the customer still has no vendor shop",
+      "Try submitting another application from the same customer account",
+      "After owner approval and registration payment confirmation, open the Affiliate Dashboard and verify the eligible products are displayed as product cards with their own photos, descriptions, prices and affiliate rates",
+      "Copy an affiliate product link and verify its URL contains both the exact product ID and affiliate referral code",
+      "Open the share link and inspect its page metadata: og:title, og:description, og:image and Twitter image must match that product; the browser then opens the exact product detail page",
+      "Use WhatsApp, Facebook and X share buttons and verify each shares the same product-specific referral URL",
+      "Open the normal product detail page and share/copy its non-affiliate product link; verify the same product image and details preview is used and no affiliate ref is added"
+    ],
+    "expected": "The customer can find the affiliate registration form, submit one application linked to their customer account, see its pending status, and cannot create duplicate affiliate applications. Once approved, the Affiliate Dashboard displays every eligible product with its actual product image, details, price and commission. Affiliate share links preserve product and referral attribution and return product-specific Open Graph/Twitter preview metadata. Normal product links show the same product-specific preview without affiliate attribution. Both share flows open the exact product detail page."
+  },
+  {
+    "name": "Customer and vendor can exchange private product messages",
+    "viewport": "desktop",
+    "covers": [
+      "customer starts a direct chat from an approved product detail page",
+      "vendor sees new customer conversation in Messages inbox",
+      "vendor can reply to customer in the same conversation",
+      "messages persist and refresh for both participants",
+      "new message and vendor reply create recipient notifications",
+      "chat routes reject users who are not conversation participants",
+      "customer cannot start a chat with own shop or unavailable vendor"
+    ],
+    "description": "Verifies the two-way customer-vendor chat workflow using separate customer and vendor accounts, including message persistence and participant-only access.",
+    "steps": [
+      "Sign in as a customer and open an approved product sold by an approved vendor",
+      "Select Chat with vendor about this product and send a message",
+      "Sign in as the product vendor and open Messages",
+      "Open the new conversation and verify the customer message appears",
+      "Reply as the vendor and verify the reply is saved",
+      "Return to the customer account and verify the vendor reply appears in the same conversation",
+      "Sign in as an unrelated account and attempt to read or send to the conversation"
+    ],
+    "expected": "The customer and vendor can both send and receive messages in one persistent product conversation, each new message creates a notification for the other participant, and unrelated accounts cannot read or send messages in that conversation."
+  },
+  {
+    "name": "Marketplace event notifications reach the correct accounts",
+    "viewport": "mobile",
+    "covers": [
+      "in-app notification list and unread counter",
+      "explicit device push notification subscription",
+      "new order notification to customer and affected vendors",
+      "order status notification to customer and affected vendors",
+      "vendor approval rejection and suspension notifications",
+      "product moderation decision notifications",
+      "admin announcements to all customers and vendors or selected audience",
+      "chat message notification to the other participant",
+      "notification action opens the exact chat thread or order history destination",
+      "mark one notification read and mark all notifications read",
+      "push delivery result recorded without losing the in-app notification"
+    ],
+    "description": "Verifies key marketplace events create persistent in-app notifications and attempt device push delivery for the affected account, while read state and audience targeting work.",
+    "steps": [
+      "Sign in as a customer and enable device notifications using the explicit Enable device alerts action",
+      "Place an order containing a product from an approved vendor",
+      "Verify the customer and affected vendor each see the new-order notification in their own notification centre",
+      "As the owner, change the order status and verify the customer and affected vendor receive the status update",
+      "As the owner, approve, reject or suspend a vendor application and verify the affected vendor receives the status notification",
+      "As the owner, approve or reject a vendor product and verify the vendor receives the product decision notification",
+      "Send an announcement to all accounts, then send a vendors-only announcement and verify audience targeting",
+      "Tap a chat notification and verify the Messages panel opens the matching private conversation only",
+      "Tap an order or payment notification and verify My Orders opens with the matching order highlighted",
+      "Open an order deep link in a fresh browser tab while signed in and verify the matching order history card is shown",
+      "Mark one notification read, then mark all remaining notifications read and verify the unread count updates"
+    ],
+    "expected": "Relevant customers and vendors see persistent notifications for their own marketplace events, announcements reach the selected audience, unread counts and read actions work, and push delivery is attempted and its result recorded without deleting or losing the in-app notification."
+  },
+  {
+    "name": "Shared product links open the exact product and allow checkout",
+    "viewport": "mobile",
+    "covers": [
+      "copied product link points to the selected product",
+      "direct product deep link works on a fresh browser load",
+      "nested share route loads frontend assets from the site root",
+      "shared product details show the correct product name image and price",
+      "customer can add the shared product to cart and reach checkout",
+      "affiliate referral code is retained when present"
+    ],
+    "description": "Verifies a customer opening a copied marketplace product link lands on that exact product rather than the marketplace homepage or a blank page.",
+    "steps": [
+      "Open an approved product from the marketplace and copy its product-specific link",
+      "Open the copied link in a fresh browser tab or private session on a mobile viewport",
+      "Verify the marketplace app loads without a blank page or failed nested asset requests",
+      "Verify the exact shared product detail opens with its correct image, title and price",
+      "Add the product to the cart and continue to checkout",
+      "Repeat with a valid affiliate product link and verify its referral query remains available"
+    ],
+    "expected": "The shared URL loads the marketplace application assets correctly, opens the exact approved product details on first load, and allows the customer to add the product to cart and continue through the existing checkout without changing payment settings."
+  },
+  {
+    "name": "Private customer support chat and agent queue",
+    "sanity": true,
+    "viewport": "mobile",
+    "covers": ["authenticated private customer support conversations", "customer cannot read another customer's conversation", "admin-only support inbox", "customer messages persist", "agent replies reach the correct customer", "one active support chat and separate waiting queue", "queue status updates and hold messaging", "live WebSocket updates for customer and admin"],
+    "description": "Verifies customer support is private per account and new messages/status changes are delivered to the right customer and admin queue.",
+    "steps": ["Actor A signs in and opens Help & Support to create a private conversation", "Actor A sends a message and verifies it appears in their conversation", "Actor B signs in and attempts to open Actor A's conversation ID and is denied", "Owner opens the support desk, marks availability online, selects Actor A and replies", "Actor A receives the reply in the same conversation without refreshing", "Actor B opens support while the agent is serving Actor A and sees a waiting/hold status", "Owner puts Actor B on hold, finishes Actor A's chat, then takes Actor B's chat", "Owner switches support offline and Actor B sees the offline contact and leave-message guidance"],
+    "expected": "Only the conversation owner and authorised admin can read the messages; replies and status changes update live; concurrent customers remain in separate conversations with a visible waiting queue and offline fallback."
+  },
+  {
+    "name": "Support availability controls and unauthorised access guard",
+    "viewport": "desktop",
+    "covers": ["only owner can change support online/offline status", "only owner can assign hold active and closed statuses", "offline support status is visible to customers", "customers can still leave messages while support is offline", "closed conversations cannot receive further messages"],
+    "description": "Verifies the owner controls support hours and queue status while customers retain an offline contact path.",
+    "steps": ["A non-admin account attempts to change support availability and is denied", "Owner sets live support offline and verifies the setting is saved", "Customer opens support and sees the offline message and WhatsApp/email alternatives", "Customer sends a message while support is offline and it remains in the admin queue", "Owner reopens support, takes the waiting conversation and then closes it", "Customer attempts to send another message to the closed conversation"],
+    "expected": "Only the owner can control availability and conversation states; offline messages remain queued; closed conversations reject further replies with a clear message."
+  },
+  {
+    "name": "Independent order fulfilment and payment management",
+    "viewport": "desktop",
+    "covers": [
+      "admin order management is separate from order payment management",
+      "admin can update order fulfilment through confirmed processing ready to ship shipped out for delivery delivered completed cancelled returned and refunded",
+      "changing order status does not change payment status",
+      "customer My Orders shows expanded order progress stages and independent payment status",
+      "order stage changes notify the customer"
+    ],
+    "description": "Verifies the owner manages delivery and fulfilment in one section while payment verification remains an independent workflow for the same order.",
+    "steps": [
+      "Sign in as owner and open Order Management",
+      "Change a New order to Confirmed and then Processing",
+      "Verify the order payment status remains unchanged after each fulfilment update",
+      "Move the order through Ready for Shipping, Shipped, Out for Delivery and Delivered",
+      "Open Order Payment Management and verify payment actions are separate from fulfilment controls",
+      "Sign in as the customer and verify My Orders shows the current fulfilment stage and separate payment status"
+    ],
+    "expected": "The same order has two independent statuses: fulfilment can be progressed or cancelled without changing the payment record, and customers can see both statuses in their order history."
+  }
+]
